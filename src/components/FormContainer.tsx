@@ -2,7 +2,7 @@
 import FormModal from "./FormModal";
 
 export type FormContainerProps = {
-  table: "task" | "project";
+  table: "task" | "project"|"subProject";
   type: "create" | "update" | "delete";
   data?: any;
   id?: number | string;

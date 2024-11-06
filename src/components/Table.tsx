@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { capitalize } from "../lib/utils/capitalize";
-import { TaskDataType } from "../types/types";
+// import { TaskDataType } from "../types/types";
 import FormContainer from "./FormContainer";
 import { FaSort } from "react-icons/fa6";
+import { TaskDataType } from "../lib/formValidationSchemas";
 
 export type TableProps = {
-  rows: TaskDataType | [];
+  rows: TaskDataType[] | [];
 };
 const Table = ({ rows }: TableProps) => {
   const [sortedRows, setRows] = useState(rows);
@@ -26,7 +27,7 @@ const Table = ({ rows }: TableProps) => {
     }
   };
 
-  const sort = (value: keyof TaskDataType[0], order: string) => {
+  const sort = (value: keyof TaskDataType, order: string) => {
     const returnValue = order === "desc" ? 1 : -1;
 
     setSortKey(value);
@@ -41,7 +42,7 @@ const Table = ({ rows }: TableProps) => {
     const updatedOrder = order === "asc" ? "desc" : "asc";
 
     setOrder(updatedOrder);
-    sort(sortKey as keyof TaskDataType[0], updatedOrder);
+    sort(sortKey as keyof TaskDataType, updatedOrder);
   };
   useEffect(() => {
     console.log(rows);
@@ -49,11 +50,7 @@ const Table = ({ rows }: TableProps) => {
   return (
     <div className="flex flex-col gap-y-3">
       <div className="flex gap-x-3 md:justify-between flex-wrap gap-y-2">
-        <div className="flex border border-green-500  rounded-lg items-center w-[6.5rem]  justify-center gap-x-2 p-2">
-          
           <FormContainer table="task" type="create" />
-        </div>
-
         <input
           type="text"
           placeholder="Search tasks"
@@ -64,7 +61,7 @@ const Table = ({ rows }: TableProps) => {
         <select
           disabled={!rows.length}
           onChange={(event) =>
-            sort(event.target.value as keyof TaskDataType[0], order)
+            sort(event.target.value as keyof TaskDataType, order)
           }
           className="flex-1 p-2 rounded-lg outline-none bg-gray-100"
         >

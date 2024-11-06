@@ -51,10 +51,10 @@ const FormModal = ({
   id,
   relatedData,
 }: FormContainerProps & { relatedData?: any }) => {
-  const size = type === "create" ? "w-full" : "w-7 h-7";
+  const size = type === "create" ? "w-[6rem]" : "w-7 h-7";
   const bgColor =
     type === "create"
-      ? "bg-Yellow"
+      ? "bg-WD_E&C-Evergreen-Forest"
       : type === "update"
       ? "bg-Sky"
       : "bg-Purple";
@@ -63,7 +63,7 @@ const FormModal = ({
 
   const Form = () => {
     return type === "delete" || id ? (
-      <form className="p-4 flex flex-col gap-4">
+      <form className="p-4 flex flex-col gap-4 ">
         <input type="text | number" name="id" value={id} hidden />
         <span className="text-center font-medium">
           All data will be lost. Are you sure you want to delete this {table}?
@@ -82,15 +82,15 @@ const FormModal = ({
   return (
     <>
       <button
-        className={`${size} flex items-center justify-center gap-x-2 ${bgColor}`}
+        className={`${size} flex items-center  h-10 roun text-white rounded-lg text-lg justify-center gap-x-2 ${bgColor}`}
         onClick={() => setOpen(true)}
       >
         {type === "create" ? (
-          <FaPlus className="text-gray-500 w-5 h-5" />
+          <FaPlus className="fill-white w-5 h-5" />
         ) : type === "delete" ? (
-          <FaTrash className="text-red-500" />
+          <FaTrash className="fill-red-500" />
         ) : (
-          <FaEdit className="text-gray-500" />
+          <FaEdit className="fill-WD_E&C-Night-Shade" />
         )}
         {type === "create" && table === "task" ? "Add":""}
         {type === "create" && table === "project" ? "Create":""}

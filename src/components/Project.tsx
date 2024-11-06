@@ -1,13 +1,9 @@
-import { lazy, Suspense } from "react";
 import Header from "./Header";
-import TaskTable from "./TaskTable";
-import Loading from "./Loading";
 import { useTransition } from "react-transition-state";
-import { ProjectDataType } from "../types/types";
+import { ProjectDataType } from "../lib/formValidationSchemas";
+import ListForSubProject from "./ListForSubProject";
 
-const GanttChart = lazy(() => import("./GanttChart"));
-
-const Project = ({list}:{list:ProjectDataType[0]}) => {
+const Project = ({ list }: { list: ProjectDataType }) => {
   const [{ status, isMounted }, toggle] = useTransition({
     timeout: 500,
     mountOnEnter: true,
@@ -21,16 +17,13 @@ const Project = ({list}:{list:ProjectDataType[0]}) => {
 
       {isMounted && (
         <div
-          className={`transition duration-300 flex flex-col gap-y-3 ${
+          className={`transition duration-300 flex flex-col gap-y-3 ml-10 ${
             status === "preEnter" || status === "exiting"
               ? " transform scale-75 opacity-0"
               : ""
           }`}
         >
-          <Suspense fallback={<Loading />}>
-            <TaskTable list={list.tasks} />
-            <GanttChart />
-          </Suspense>
+          <ListForSubProject list={list.subProject || []} />
         </div>
       )}
     </div>
